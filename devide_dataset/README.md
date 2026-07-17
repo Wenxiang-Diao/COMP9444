@@ -1,6 +1,6 @@
 | 内容 | 位置 |
 |------|------|
-| 训练/验证/测试划分（70% / 15% / 15%） | `data/train_split.csv`、`data/val_split.csv`、`data/test_split.csv` |
+| 训练/验证/测试划分（75% / 15% / 10%） | `data/train_split.csv`、`data/val_split.csv`、`data/test_split.csv` |
 | 类别 ID ↔ 名称映射 | `data/class_maps.json` |
 | PyTorch `Dataset` | `prepare_data.py` 中的 `LeafDataset` |
 | 数据增强 | `train_transforms`（含增强）、`val_transforms`（无增强） |
@@ -8,14 +8,11 @@
 
 **随机种子：** `42`（保证划分可复现）  
 **输入尺寸：** `299 × 299`  
-**Batch size：** `32`
+**Batch size：** `32`  
+**采样阈值：** `THRESHOLD = 0.80`（每个类别按路径排序后只保留前 80% 图片）  
+**排除类别：** `Background_without_leaves`
 
-| 集合 | 样本数 |
-|------|--------:|
-| Train | 38813 |
-| Val | 8317 |
-| Test | 8318 |
-| **合计** | **55448** |
+运行脚本后，终端会打印各 split 的实际样本数（约 75% / 15% / 10%）。
 
 ---
 
@@ -25,11 +22,13 @@
 
 ```text
 Data for Identification of Plant Leaf Diseases Using a 9-layer Deep Convolutional Neural Network/
-  └── Plant_leave_diseases_dataset_without_augmentation/
+  └── Plant_leave_diseases_dataset_with_augmentation/
       ├── Apple___Apple_scab/
       ├── Tomato___healthy/
       └── ...
 ```
+
+> 使用的是 **with_augmentation** 版本；脚本会跳过 `Background_without_leaves` 文件夹。
 
 2. 安装依赖：
 
@@ -40,10 +39,18 @@ pip install -r requirements.txt
 3. 运行：
 
 ```bash
-python devid_dataset/prepare_data.py
+python devide_dataset/prepare_data.py
 ```
 
 脚本会生成 `devide_dataset/data/` 下的 CSV 和 `class_maps.json`。
+
+---
+
+## 数据筛选与划分
+
+1. 遍历各类别文件夹（排除 `Background_without_leaves`）。
+2. 将图片路径排序后，只保留前 `THRESHOLD`（80%）张。
+3. 分层划分：先 75% train / 25% 临时集，再把临时集按 60% / 40% 拆成 val（15%）与 test（10%）。
 
 ---
 
@@ -55,24 +62,24 @@ python devid_dataset/prepare_data.py
 |------|------|------|
 | `path` | str | 图片绝对路径 |
 | `raw_class` | str | 原始文件夹名，如 `Tomato___Bacterial_spot` |
-| `label_raw` | int | 组合类别 ID，**共 39 类**（默认多分类任务用这个） |
-| `label_plant` | int | 植物种类 ID，**共 15 类** |
-| `label_disease` | int | 病害类型 ID，**共 22 类** |
+| `label_raw` | int | 组合类别 ID，**共 38 类**（默认多分类任务用这个） |
+| `label_plant` | int | 植物种类 ID，**共 14 类** |
+| `label_disease` | int | 病害类型 ID，**共 21 类** |
 
 
 ### 该用哪个标签？
 
 | 角色 | 建议目标 |
 |------|----------|
-| Baseline / 单任务分类 | `label_raw`（39 类） |
+| Baseline / 单任务分类 | `label_raw`（38 类） |
 | 多任务（植物头 + 病害头） | `label_plant` 和/或 `label_disease` |
 | 评估 / 混淆矩阵 | 用 `class_maps.json` 把 ID 转成类名 |
 
 类别数量：
 
-- `label_raw`：0 … 38（39 类）
-- `label_plant`：15 种植物
-- `label_disease`：22 种病害
+- `label_raw`：0 … 37（38 类）
+- `label_plant`：14 种植物
+- `label_disease`：21 种病害
 
 ### `class_maps.json` 是什么？
 
@@ -82,7 +89,7 @@ python devid_dataset/prepare_data.py
 |------|------|
 | `raw_to_idx` / `plant_to_idx` / `disease_to_idx` | 名称 → ID |
 | `idx_to_raw` / `idx_to_plant` / `idx_to_disease` | ID → 名称（key 是字符串，如 `"29"`） |
-| `num_classes` | `{"raw": 39, "plant": 15, "disease": 22}` |
+| `num_classes` | `{"raw": 38, "plant": 14, "disease": 21}` |
 
 评估示例：
 
@@ -111,7 +118,7 @@ import pandas as pd
 from torch.utils.data import DataLoader
 
 # 按实际项目结构调整 import
-from devid_dataset.prepare_data import (
+from devide_dataset.prepare_data import (
     LeafDataset,
     train_transforms,
     val_transforms,
@@ -145,7 +152,7 @@ test_loader = DataLoader(
 
 batch = next(iter(train_loader))
 # batch["image"]:          (N, 3, 299, 299)，已按 ImageNet 均值方差归一化
-# batch["label_raw"]:      (N,) 主任务 39 类标签
+# batch["label_raw"]:      (N,) 主任务 38 类标签
 # batch["label_plant"]:    (N,)
 # batch["label_disease"]:  (N,)
 ```
@@ -156,6 +163,6 @@ batch = next(iter(train_loader))
 for batch in train_loader:
     images = batch["image"].to(device)
     labels = batch["label_raw"].to(device)
-    logits = model(images)          # shape: (N, 39)
+    logits = model(images)          # shape: (N, 38)
     loss = criterion(logits, labels)
 ```
