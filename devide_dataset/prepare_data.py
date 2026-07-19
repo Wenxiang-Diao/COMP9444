@@ -9,11 +9,13 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 
 # Basic Configuration
-DATA_ROOT = Path("Data for Identification of Plant Leaf Diseases Using a 9-layer Deep Convolutional Neural Network/Plant_leave_diseases_dataset_without_augmentation")
+DATA_ROOT = Path(
+    "Data for Identification of Plant Leaf Diseases Using a 9-layer Deep Convolutional Neural Network/Plant_leave_diseases_dataset_with_augmentation")
 
 IMAGE_SIZE = 299
 BATCH_SIZE = 32
 SEED = 42
+THRESHOLD = 0.80
 
 random.seed(SEED)
 torch.manual_seed(SEED)
@@ -22,18 +24,28 @@ torch.manual_seed(SEED)
 all_samples = []
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".bmp"}
 
-class_folders = sorted([d for d in DATA_ROOT.iterdir() if d.is_dir() and not d.name.startswith(".")])
+class_folders = sorted([
+    d for d in DATA_ROOT.iterdir() 
+    if d.is_dir() and not d.name.startswith(".") and d.name != "Background_without_leaves"
+])
 
+print("Extracting the first 80% of images in their original order...")
 for folder in class_folders:
-    for img_path in folder.rglob("*"):
-        if img_path.is_file() and img_path.suffix.lower() in IMAGE_EXTS:
-            all_samples.append({
-                "path": str(img_path.resolve()),
-                "raw_class": folder.name
-            })
+    img_paths = [p for p in folder.rglob("*") if p.is_file() and p.suffix.lower() in IMAGE_EXTS]
+    
+    img_paths.sort()
+    
+    keep_count = int(len(img_paths) * THRESHOLD)
+    filtered_paths = img_paths[:keep_count]
+    
+    for img_path in filtered_paths:
+        all_samples.append({
+            "path": str(img_path.resolve()),
+            "raw_class": folder.name
+        })
 
 df = pd.DataFrame(all_samples)
-print(f"Found {len(df)} images across {df['raw_class'].nunique()} raw classes.")
+print(f"After filtering: kept {len(df)} images across {df['raw_class'].nunique()} raw classes.")
 
 # Parse plant / disease names and build integer ID mappings
 plants = set()
@@ -50,18 +62,19 @@ raw_to_idx = {r: i for i, r in enumerate(sorted(df["raw_class"].unique()))}
 # Map text labels to integer IDs for training
 df["label_raw"] = df["raw_class"].map(raw_to_idx)
 df["label_plant"] = df["raw_class"].apply(lambda x: plant_to_idx[x.split("___")[0] if "___" in x else "Background"])
-df["label_disease"] = df["raw_class"].apply(lambda x: disease_to_idx[x.split("___")[1] if "___" in x else "without_leaves"])
+df["label_disease"] = df["raw_class"].apply(
+    lambda x: disease_to_idx[x.split("___")[1] if "___" in x else "without_leaves"])
 
 # Stratified split
 print("Splitting into train, validation, and test sets...")
 
-# First: 70% train, 30% temporary hold-out
+# First: 75% train, 25% temporary hold-out
 train_df, temp_df = train_test_split(
-    df, test_size=0.30, stratify=df["label_raw"], random_state=SEED
+    df, test_size=0.25, stratify=df["label_raw"], random_state=SEED
 )
-# Then: split the remaining 30% into 15% val and 15% test
+# Then: split the remaining 25% into 15% val and 10% test
 val_df, test_df = train_test_split(
-    temp_df, test_size=0.50, stratify=temp_df["label_raw"], random_state=SEED
+    temp_df, test_size=0.40, stratify=temp_df["label_raw"], random_state=SEED
 )
 
 # Save CSVs and label maps next to this script: devid_dataset/data/
@@ -109,6 +122,7 @@ val_transforms = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
+
 # PyTorch Dataset
 class LeafDataset(Dataset):
     def __init__(self, dataframe, transform=None):
@@ -121,16 +135,17 @@ class LeafDataset(Dataset):
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
         image = Image.open(row["path"]).convert("RGB")
-        
+
         if self.transform:
             image = self.transform(image)
-            
+
         return {
             "image": image,
             "label_raw": int(row["label_raw"]),
             "label_plant": int(row["label_plant"]),
             "label_disease": int(row["label_disease"])
         }
+
 
 # Instantiate datasets
 train_dataset = LeafDataset(train_df, transform=train_transforms)
