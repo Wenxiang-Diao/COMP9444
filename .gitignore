@@ -1,0 +1,31 @@
+# Local dataset and archives (large, reproducible, and not suitable for Git)
+Data for Identification of Plant Leaf Diseases Using a 9-layer Deep Convolutional Neural Network/
+
+# Split CSVs contain machine-specific absolute image paths.
+devide_dataset/data/*_split.csv
+devide_dataset/audit/
+
+# Local experiment artifacts
+inception_experiments/runs/
+inception_experiments/eval/
+gsmo_inception_multioutput/runs/
+gsmo_inception_multioutput/eval/
+*.pt
+*.pth
+*.tar.gz
+
+# Credentials and machine-local download helpers
+download_key
+download_key.pub
+*.pem
+
+# Course documents and temporary working files
+COMP9444_26T2_Project_Descriptions.pdf
+COMP9444_Group_Project_Marking_Criteria.pdf
+tmp/
+.ipynb_checkpoints/
+.DS_Store
+
+# Python caches
+__pycache__/
+*.py[cod]
