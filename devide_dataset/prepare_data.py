@@ -20,8 +20,7 @@ THRESHOLD = 0.80
 random.seed(SEED)
 torch.manual_seed(SEED)
 
-# Collect image paths
-all_samples = []
+# Collect image paths (first 80% and last 20% per class, in original sorted order)
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".bmp"}
 
 class_folders = sorted([
@@ -29,23 +28,33 @@ class_folders = sorted([
     if d.is_dir() and not d.name.startswith(".") and d.name != "Background_without_leaves"
 ])
 
-print("Extracting the first 80% of images in their original order...")
+first_portion_samples = []
+last_portion_samples = []
+
+print("Extracting the first 80% and last 20% of images per class...")
 for folder in class_folders:
     img_paths = [p for p in folder.rglob("*") if p.is_file() and p.suffix.lower() in IMAGE_EXTS]
-    
     img_paths.sort()
-    
-    keep_count = int(len(img_paths) * THRESHOLD)
-    filtered_paths = img_paths[:keep_count]
-    
-    for img_path in filtered_paths:
-        all_samples.append({
+
+    split_idx = int(len(img_paths) * THRESHOLD)
+    for img_path in img_paths[:split_idx]:
+        first_portion_samples.append({
             "path": str(img_path.resolve()),
-            "raw_class": folder.name
+            "raw_class": folder.name,
+        })
+    for img_path in img_paths[split_idx:]:
+        last_portion_samples.append({
+            "path": str(img_path.resolve()),
+            "raw_class": folder.name,
         })
 
-df = pd.DataFrame(all_samples)
-print(f"After filtering: kept {len(df)} images across {df['raw_class'].nunique()} raw classes.")
+df_first = pd.DataFrame(first_portion_samples)
+df_last = pd.DataFrame(last_portion_samples)
+df = pd.concat([df_first, df_last], ignore_index=True)
+print(
+    f"Collected {len(df)} images across {df['raw_class'].nunique()} raw classes "
+    f"(first 80%: {len(df_first)}, last 20%: {len(df_last)})."
+)
 
 # Parse plant / disease names and build integer ID mappings
 plants = set()
@@ -59,23 +68,40 @@ plant_to_idx = {p: i for i, p in enumerate(sorted(plants))}
 disease_to_idx = {d: i for i, d in enumerate(sorted(diseases))}
 raw_to_idx = {r: i for i, r in enumerate(sorted(df["raw_class"].unique()))}
 
-# Map text labels to integer IDs for training
-df["label_raw"] = df["raw_class"].map(raw_to_idx)
-df["label_plant"] = df["raw_class"].apply(lambda x: plant_to_idx[x.split("___")[0] if "___" in x else "Background"])
-df["label_disease"] = df["raw_class"].apply(
-    lambda x: disease_to_idx[x.split("___")[1] if "___" in x else "without_leaves"])
+def stratified_split_75_15_10(dataframe: pd.DataFrame):
+    """Split into 75% train, 15% val, 10% test (stratified by label_raw)."""
+    train_part, temp_part = train_test_split(
+        dataframe, test_size=0.25, stratify=dataframe["label_raw"], random_state=SEED
+    )
+    val_part, test_part = train_test_split(
+        temp_part, test_size=0.40, stratify=temp_part["label_raw"], random_state=SEED
+    )
+    return train_part, val_part, test_part
 
-# Stratified split
-print("Splitting into train, validation, and test sets...")
 
-# First: 75% train, 25% temporary hold-out
-train_df, temp_df = train_test_split(
-    df, test_size=0.25, stratify=df["label_raw"], random_state=SEED
-)
-# Then: split the remaining 25% into 15% val and 10% test
-val_df, test_df = train_test_split(
-    temp_df, test_size=0.40, stratify=temp_df["label_raw"], random_state=SEED
-)
+def add_labels(dataframe: pd.DataFrame) -> pd.DataFrame:
+    labeled = dataframe.copy()
+    labeled["label_raw"] = labeled["raw_class"].map(raw_to_idx)
+    labeled["label_plant"] = labeled["raw_class"].apply(
+        lambda x: plant_to_idx[x.split("___")[0] if "___" in x else "Background"]
+    )
+    labeled["label_disease"] = labeled["raw_class"].apply(
+        lambda x: disease_to_idx[x.split("___")[1] if "___" in x else "without_leaves"]
+    )
+    return labeled
+
+
+df_first = add_labels(df_first)
+df_last = add_labels(df_last)
+
+# Stratified split each portion (75/15/10), then merge
+print("Splitting first 80% and last 20% into train/val/test (75/15/10), then merging...")
+train_first, val_first, test_first = stratified_split_75_15_10(df_first)
+train_last, val_last, test_last = stratified_split_75_15_10(df_last)
+
+train_df = pd.concat([train_first, train_last], ignore_index=True)
+val_df = pd.concat([val_first, val_last], ignore_index=True)
+test_df = pd.concat([test_first, test_last], ignore_index=True)
 
 # Save CSVs and label maps next to this script: devid_dataset/data/
 OUT_DIR = Path(__file__).resolve().parent / "data"
