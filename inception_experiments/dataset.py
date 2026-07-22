@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 from PIL import Image
 import torch
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader, Dataset, WeightedRandomSampler
 from torchvision import transforms
 
 
@@ -80,12 +80,27 @@ def make_loader(
     num_workers: int,
     device: torch.device,
     seed: int,
+    sampling: str = "none",
 ) -> DataLoader:
     generator = torch.Generator().manual_seed(seed)
+    frame = read_split(csv_path)
+    sampler = None
+    if train and sampling == "raw-balanced":
+        counts = frame["label_raw"].value_counts()
+        sample_weights = frame["label_raw"].map(lambda label: 1.0 / counts[label]).to_numpy()
+        sampler = WeightedRandomSampler(
+            torch.tensor(sample_weights, dtype=torch.double),
+            num_samples=len(frame),
+            replacement=True,
+            generator=generator,
+        )
+    elif sampling != "none":
+        raise ValueError(f"Unknown sampling strategy: {sampling}")
     return DataLoader(
-        LeafDataset(read_split(csv_path), train=train),
+        LeafDataset(frame, train=train),
         batch_size=batch_size,
-        shuffle=train,
+        shuffle=train and sampler is None,
+        sampler=sampler,
         num_workers=num_workers,
         pin_memory=device.type == "cuda",
         persistent_workers=num_workers > 0,

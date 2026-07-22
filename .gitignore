@@ -3,7 +3,11 @@ Data for Identification of Plant Leaf Diseases Using a 9-layer Deep Convolutiona
 
 # Split CSVs contain machine-specific absolute image paths.
 devide_dataset/data/*_split.csv
+devide_dataset/data_38_balanced/
 devide_dataset/audit/
+train_split.csv
+val_split.csv
+test_split.csv
 
 # Local experiment artifacts
 inception_experiments/runs/

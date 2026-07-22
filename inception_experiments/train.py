@@ -27,6 +27,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--weights", choices=("imagenet", "none", "random"), default="imagenet")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--num-workers", type=int, default=0)
+    parser.add_argument(
+        "--sampling", choices=("none", "raw-balanced"), default="none",
+        help="Training-only sampling strategy; raw-balanced uses inverse-frequency joint-class sampling",
+    )
     parser.add_argument("--device", default="auto")
     parser.add_argument("--amp", action="store_true", help="Use CUDA automatic mixed precision")
     parser.add_argument("--amp-dtype", choices=("bf16", "fp16"), default="bf16")
@@ -115,7 +119,10 @@ def main() -> None:
         dropout=args.dropout,
     )
     model = build_model(config).to(device)
-    train_loader = make_loader(args.data_dir / "train_split.csv", args.batch_size, True, args.num_workers, device, args.seed)
+    train_loader = make_loader(
+        args.data_dir / "train_split.csv", args.batch_size, True,
+        args.num_workers, device, args.seed, args.sampling,
+    )
     val_loader = make_loader(args.data_dir / "val_split.csv", args.batch_size, False, args.num_workers, device, args.seed)
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)

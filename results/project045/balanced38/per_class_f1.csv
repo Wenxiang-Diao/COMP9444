@@ -1,0 +1,229 @@
+model,class,f1_mean,f1_sd,support
+GSMo ImageNet,Apple___Apple_scab,0.9293725978455042,0.0230157107742527,100.0
+GSMo ImageNet,Apple___Black_rot,0.6149891035042799,0.23145158438517555,100.0
+GSMo ImageNet,Apple___Cedar_apple_rust,0.9571692539247706,0.04873006743605513,100.0
+GSMo ImageNet,Apple___healthy,0.7332581602786288,0.11816771582381357,165.0
+GSMo ImageNet,Blueberry___healthy,0.921593625498008,0.1011628081233456,150.0
+GSMo ImageNet,Cherry___Powdery_mildew,0.9174003676635708,0.10756748239962048,105.0
+GSMo ImageNet,Cherry___healthy,0.9054978668598567,0.09138910856122097,100.0
+GSMo ImageNet,Corn___Cercospora_leaf_spot Gray_leaf_spot,0.9715837171331488,0.011006796268990097,100.0
+GSMo ImageNet,Corn___Common_rust,0.9745695062150759,0.04044784879954497,119.0
+GSMo ImageNet,Corn___Northern_Leaf_Blight,0.962569138268956,0.011413067750921565,100.0
+GSMo ImageNet,Corn___healthy,0.9830962506811448,0.010941862065472626,116.0
+GSMo ImageNet,Grape___Black_rot,0.9526974018182658,0.0710721312353356,118.0
+GSMo ImageNet,Grape___Esca_(Black_Measles),0.964383978144963,0.055413132183898824,138.0
+GSMo ImageNet,Grape___Leaf_blight_(Isariopsis_Leaf_Spot),0.9873465119309855,0.0073031769131673635,107.0
+GSMo ImageNet,Grape___healthy,0.9834138010313004,0.002616820611165941,100.0
+GSMo ImageNet,Orange___Haunglongbing_(Citrus_greening),0.9751997360191217,0.022248414354385123,551.0
+GSMo ImageNet,Peach___Bacterial_spot,0.9577544044005085,0.018623164839373242,230.0
+GSMo ImageNet,Peach___healthy,0.6392152169403355,0.30773389185188355,100.0
+GSMo ImageNet,"Pepper,_bell___Bacterial_spot",0.5612348927623803,0.24599514715118062,100.0
+GSMo ImageNet,"Pepper,_bell___healthy",0.8506480784224871,0.16458125540274612,148.0
+GSMo ImageNet,Potato___Early_blight,0.860356800631306,0.12378952839055989,100.0
+GSMo ImageNet,Potato___Late_blight,0.867612293144208,0.06396901344544069,100.0
+GSMo ImageNet,Potato___healthy,0.8975756999709095,0.08600154346122259,100.0
+GSMo ImageNet,Raspberry___healthy,0.8913113728028251,0.053458497303588745,100.0
+GSMo ImageNet,Soybean___healthy,0.9617278890846185,0.046622774177941306,509.0
+GSMo ImageNet,Squash___Powdery_mildew,0.9954881311829541,0.005622599976967665,184.0
+GSMo ImageNet,Strawberry___Leaf_scorch,0.9783810960281549,0.02657055859572412,111.0
+GSMo ImageNet,Strawberry___healthy,0.9164750633981402,0.08967536528242857,100.0
+GSMo ImageNet,Tomato___Bacterial_spot,0.7569334054040079,0.06938284161858543,213.0
+GSMo ImageNet,Tomato___Early_blight,0.6991754653023668,0.07351991271181652,100.0
+GSMo ImageNet,Tomato___Late_blight,0.8390466442339641,0.032286613511043206,191.0
+GSMo ImageNet,Tomato___Leaf_Mold,0.6818804023501185,0.08401950570065805,100.0
+GSMo ImageNet,Tomato___Septoria_leaf_spot,0.6885951290214044,0.14515488190636872,178.0
+GSMo ImageNet,Tomato___Spider_mites Two-spotted_spider_mite,0.2726451459416362,0.20929898492348054,168.0
+GSMo ImageNet,Tomato___Target_Spot,0.604355434845453,0.07259986067394775,140.0
+GSMo ImageNet,Tomato___Tomato_Yellow_Leaf_Curl_Virus,0.7247449846809007,0.08766039688648274,535.0
+GSMo ImageNet,Tomato___Tomato_mosaic_virus,0.469571227647177,0.09691355576833513,100.0
+GSMo ImageNet,Tomato___healthy,0.8027098021142591,0.04382807747494734,159.0
+GSMo equal loss,Apple___Apple_scab,0.8943572318495866,0.07358386153665396,100.0
+GSMo equal loss,Apple___Black_rot,0.9669478003191246,0.03812838934006822,100.0
+GSMo equal loss,Apple___Cedar_apple_rust,0.9588125579558152,0.04595213401639931,100.0
+GSMo equal loss,Apple___healthy,0.92968548366092,0.051792651148371366,165.0
+GSMo equal loss,Blueberry___healthy,0.9336126983737293,0.051757951771746566,150.0
+GSMo equal loss,Cherry___Powdery_mildew,0.9769696530475539,0.01817932561251275,105.0
+GSMo equal loss,Cherry___healthy,0.9834481108333127,0.010247447865789785,100.0
+GSMo equal loss,Corn___Cercospora_leaf_spot Gray_leaf_spot,0.9392721287837825,0.013484778616824034,100.0
+GSMo equal loss,Corn___Common_rust,0.9839854168195944,0.024205112003053076,119.0
+GSMo equal loss,Corn___Northern_Leaf_Blight,0.9303398545378482,0.020689332476865614,100.0
+GSMo equal loss,Corn___healthy,0.9929196673213551,0.008811934439280905,116.0
+GSMo equal loss,Grape___Black_rot,0.9786351005088599,0.019873704865695545,118.0
+GSMo equal loss,Grape___Esca_(Black_Measles),0.9552722701618012,0.05545202464878903,138.0
+GSMo equal loss,Grape___Leaf_blight_(Isariopsis_Leaf_Spot),0.9874346856331789,0.007276391131305745,107.0
+GSMo equal loss,Grape___healthy,0.9966996699669967,0.005716339298907175,100.0
+GSMo equal loss,Orange___Haunglongbing_(Citrus_greening),0.969387737252831,0.02422801857780951,551.0
+GSMo equal loss,Peach___Bacterial_spot,0.97303667442545,0.029856777477498406,230.0
+GSMo equal loss,Peach___healthy,0.8414726449314811,0.10846652820355783,100.0
+GSMo equal loss,"Pepper,_bell___Bacterial_spot",0.920523484378233,0.06024842227820056,100.0
+GSMo equal loss,"Pepper,_bell___healthy",0.9689837216450359,0.023957452261817534,148.0
+GSMo equal loss,Potato___Early_blight,0.9715187105452857,0.008117368394091969,100.0
+GSMo equal loss,Potato___Late_blight,0.9499944687628149,0.041523329067745696,100.0
+GSMo equal loss,Potato___healthy,0.9575599083854648,0.03481940868943502,100.0
+GSMo equal loss,Raspberry___healthy,0.9637826019913649,0.01399226630076139,100.0
+GSMo equal loss,Soybean___healthy,0.9904441597414104,0.006068980729943083,509.0
+GSMo equal loss,Squash___Powdery_mildew,0.9963520087591604,0.004186638230645134,184.0
+GSMo equal loss,Strawberry___Leaf_scorch,0.994047259929613,0.006780377423054737,111.0
+GSMo equal loss,Strawberry___healthy,0.9817722599927743,0.002737058949814303,100.0
+GSMo equal loss,Tomato___Bacterial_spot,0.8629023291393704,0.10428982031802791,213.0
+GSMo equal loss,Tomato___Early_blight,0.638921619579275,0.10269879737476183,100.0
+GSMo equal loss,Tomato___Late_blight,0.8464833201226295,0.026708975555523394,191.0
+GSMo equal loss,Tomato___Leaf_Mold,0.7743711592589353,0.07750697055193942,100.0
+GSMo equal loss,Tomato___Septoria_leaf_spot,0.7620283976741957,0.18950965799035555,178.0
+GSMo equal loss,Tomato___Spider_mites Two-spotted_spider_mite,0.4265281610128226,0.17031020320385856,168.0
+GSMo equal loss,Tomato___Target_Spot,0.7842842291934202,0.09213597546060939,140.0
+GSMo equal loss,Tomato___Tomato_Yellow_Leaf_Curl_Virus,0.8604532491698418,0.08728768157847216,535.0
+GSMo equal loss,Tomato___Tomato_mosaic_virus,0.6192367569516205,0.2230089018681777,100.0
+GSMo equal loss,Tomato___healthy,0.8669302371264055,0.06580043079752063,159.0
+GSMo no pretraining,Apple___Apple_scab,0.9784044793663164,0.011160937829705087,100.0
+GSMo no pretraining,Apple___Black_rot,0.9932488159919733,0.00775955544939366,100.0
+GSMo no pretraining,Apple___Cedar_apple_rust,0.9966996699669967,0.005716339298907199,100.0
+GSMo no pretraining,Apple___healthy,0.9796492182297905,0.004804893584206949,165.0
+GSMo no pretraining,Blueberry___healthy,0.994492164448233,0.005043737358502972,150.0
+GSMo no pretraining,Cherry___Powdery_mildew,0.9920860603325058,0.0072444260710986435,105.0
+GSMo no pretraining,Cherry___healthy,0.9917079618409602,0.0028729581467048532,100.0
+GSMo no pretraining,Corn___Cercospora_leaf_spot Gray_leaf_spot,0.9731316515236114,0.012753944666212881,100.0
+GSMo no pretraining,Corn___Common_rust,0.9917348196766856,0.010868325367207806,119.0
+GSMo no pretraining,Corn___Northern_Leaf_Blight,0.9665238200272389,0.018068558018444467,100.0
+GSMo no pretraining,Corn___healthy,0.9985693848354793,0.0024778981510284385,116.0
+GSMo no pretraining,Grape___Black_rot,0.98865227678787,0.004850980097493587,118.0
+GSMo no pretraining,Grape___Esca_(Black_Measles),0.9952038369304557,0.004153599058918145,138.0
+GSMo no pretraining,Grape___Leaf_blight_(Isariopsis_Leaf_Spot),0.9953049583150504,0.004717134195502184,107.0
+GSMo no pretraining,Grape___healthy,0.9983416252072969,0.0028723893989533807,100.0
+GSMo no pretraining,Orange___Haunglongbing_(Citrus_greening),0.9966784677439798,0.0018846466068610547,551.0
+GSMo no pretraining,Peach___Bacterial_spot,0.9941677989400333,0.005525550245355396,230.0
+GSMo no pretraining,Peach___healthy,0.9918056774948786,0.01019261034080657,100.0
+GSMo no pretraining,"Pepper,_bell___Bacterial_spot",0.9933164995791562,0.007681514081181097,100.0
+GSMo no pretraining,"Pepper,_bell___healthy",0.9853410924839497,0.005165830525013892,148.0
+GSMo no pretraining,Potato___Early_blight,0.9933333333333333,0.0057735026918962545,100.0
+GSMo no pretraining,Potato___Late_blight,0.9801448119212833,0.008277625139072866,100.0
+GSMo no pretraining,Potato___healthy,0.9816057697140272,0.007786391010091242,100.0
+GSMo no pretraining,Raspberry___healthy,0.9917405582922824,0.007541344756608528,100.0
+GSMo no pretraining,Soybean___healthy,0.991451676759023,0.0015177377323195502,509.0
+GSMo no pretraining,Squash___Powdery_mildew,0.9954978974767285,0.003103965683632225,184.0
+GSMo no pretraining,Strawberry___Leaf_scorch,0.9969969360631454,0.0026008088126953494,111.0
+GSMo no pretraining,Strawberry___healthy,0.9932998324958123,0.007676006189205732,100.0
+GSMo no pretraining,Tomato___Bacterial_spot,0.9812107201898385,0.004347823665509862,213.0
+GSMo no pretraining,Tomato___Early_blight,0.9602311014871082,0.021543985434864753,100.0
+GSMo no pretraining,Tomato___Late_blight,0.9716913764157858,0.004432070873663571,191.0
+GSMo no pretraining,Tomato___Leaf_Mold,0.9900330841604373,0.013153520782689622,100.0
+GSMo no pretraining,Tomato___Septoria_leaf_spot,0.9803277401392899,0.010139469074707272,178.0
+GSMo no pretraining,Tomato___Spider_mites Two-spotted_spider_mite,0.9724251484903279,0.006261693381663903,168.0
+GSMo no pretraining,Tomato___Target_Spot,0.9621127664605925,0.015284928496187126,140.0
+GSMo no pretraining,Tomato___Tomato_Yellow_Leaf_Curl_Virus,0.9946780001847344,0.0014410556719055485,535.0
+GSMo no pretraining,Tomato___Tomato_mosaic_virus,0.9950082918739636,0.005000020626509593,100.0
+GSMo no pretraining,Tomato___healthy,0.9834098426837526,0.009369722109902638,159.0
+InceptionV3 38-class,Apple___Apple_scab,0.7496181283870847,0.19000809638404104,100.0
+InceptionV3 38-class,Apple___Black_rot,0.7185719594708732,0.1791120847888923,100.0
+InceptionV3 38-class,Apple___Cedar_apple_rust,0.9721218843018317,0.027363663739744117,100.0
+InceptionV3 38-class,Apple___healthy,0.7736974576627685,0.13031289910758032,165.0
+InceptionV3 38-class,Blueberry___healthy,0.8762780279438133,0.05100723612134496,150.0
+InceptionV3 38-class,Cherry___Powdery_mildew,0.7908800161867097,0.16577244646662384,105.0
+InceptionV3 38-class,Cherry___healthy,0.9658990718748798,0.017067503476780602,100.0
+InceptionV3 38-class,Corn___Cercospora_leaf_spot Gray_leaf_spot,0.9071413736834297,0.04742494939537285,100.0
+InceptionV3 38-class,Corn___Common_rust,0.6370649917543462,0.4878692571823942,119.0
+InceptionV3 38-class,Corn___Northern_Leaf_Blight,0.9185731456771297,0.02656088867275761,100.0
+InceptionV3 38-class,Corn___healthy,0.9942897668219558,0.0024567195343529764,116.0
+InceptionV3 38-class,Grape___Black_rot,0.8375800612642718,0.1885311499327443,118.0
+InceptionV3 38-class,Grape___Esca_(Black_Measles),0.7274192385431423,0.44014181255959073,138.0
+InceptionV3 38-class,Grape___Leaf_blight_(Isariopsis_Leaf_Spot),0.9608882897052765,0.02818148567644449,107.0
+InceptionV3 38-class,Grape___healthy,0.9900495037128403,0.004950309416384273,100.0
+InceptionV3 38-class,Orange___Haunglongbing_(Citrus_greening),0.91548184930998,0.051142924515333366,551.0
+InceptionV3 38-class,Peach___Bacterial_spot,0.7715014767635523,0.12785742446138948,230.0
+InceptionV3 38-class,Peach___healthy,0.40127605315552595,0.3193045480358738,100.0
+InceptionV3 38-class,"Pepper,_bell___Bacterial_spot",0.4702022176783249,0.31331489998816,100.0
+InceptionV3 38-class,"Pepper,_bell___healthy",0.8316124642528614,0.13270673597821064,148.0
+InceptionV3 38-class,Potato___Early_blight,0.8735541965128614,0.11247843013032183,100.0
+InceptionV3 38-class,Potato___Late_blight,0.8743359521137298,0.10722437857428399,100.0
+InceptionV3 38-class,Potato___healthy,0.9032845650836174,0.05512617763859366,100.0
+InceptionV3 38-class,Raspberry___healthy,0.7531416563674629,0.13171802236165794,100.0
+InceptionV3 38-class,Soybean___healthy,0.9837820255880456,0.005725940040192071,509.0
+InceptionV3 38-class,Squash___Powdery_mildew,0.9834697910784866,0.024078330653850892,184.0
+InceptionV3 38-class,Strawberry___Leaf_scorch,0.5568813473630797,0.11798025932862422,111.0
+InceptionV3 38-class,Strawberry___healthy,0.9163632900769568,0.02367902370917724,100.0
+InceptionV3 38-class,Tomato___Bacterial_spot,0.6960557300343889,0.14770426189950164,213.0
+InceptionV3 38-class,Tomato___Early_blight,0.39961484811022924,0.1356260149599718,100.0
+InceptionV3 38-class,Tomato___Late_blight,0.7456935575637612,0.07357976492464896,191.0
+InceptionV3 38-class,Tomato___Leaf_Mold,0.5807764877978182,0.08557367034153661,100.0
+InceptionV3 38-class,Tomato___Septoria_leaf_spot,0.6123399274540414,0.20075056899077082,178.0
+InceptionV3 38-class,Tomato___Spider_mites Two-spotted_spider_mite,0.15904435518219764,0.11819572982192418,168.0
+InceptionV3 38-class,Tomato___Target_Spot,0.33700159087422427,0.17903434609835034,140.0
+InceptionV3 38-class,Tomato___Tomato_Yellow_Leaf_Curl_Virus,0.6206526906263022,0.074947235924223,535.0
+InceptionV3 38-class,Tomato___Tomato_mosaic_virus,0.5672830745346363,0.06691782333164388,100.0
+InceptionV3 38-class,Tomato___healthy,0.7714589907332813,0.04516710131454909,159.0
+InceptionV3 plain multi-output,Apple___Apple_scab,0.7189343381873888,0.30735645687941016,100.0
+InceptionV3 plain multi-output,Apple___Black_rot,0.9420650218678427,0.02390796066705231,100.0
+InceptionV3 plain multi-output,Apple___Cedar_apple_rust,0.9582064870146954,0.055657881755574366,100.0
+InceptionV3 plain multi-output,Apple___healthy,0.8095215672672778,0.04693077611750901,165.0
+InceptionV3 plain multi-output,Blueberry___healthy,0.9044976154393166,0.028777648789408604,150.0
+InceptionV3 plain multi-output,Cherry___Powdery_mildew,0.9890006706908115,0.011806444507582427,105.0
+InceptionV3 plain multi-output,Cherry___healthy,0.9684072249589492,0.024739528987657265,100.0
+InceptionV3 plain multi-output,Corn___Cercospora_leaf_spot Gray_leaf_spot,0.9517268079084732,0.02417766237091614,100.0
+InceptionV3 plain multi-output,Corn___Common_rust,0.9328007021593806,0.0917109204452043,119.0
+InceptionV3 plain multi-output,Corn___Northern_Leaf_Blight,0.9391858472097664,0.021739803110956947,100.0
+InceptionV3 plain multi-output,Corn___healthy,0.9547517283900572,0.060310030338879904,116.0
+InceptionV3 plain multi-output,Grape___Black_rot,0.9728603350002109,0.015679068078742565,118.0
+InceptionV3 plain multi-output,Grape___Esca_(Black_Measles),0.9764639219425902,0.008809026040125323,138.0
+InceptionV3 plain multi-output,Grape___Leaf_blight_(Isariopsis_Leaf_Spot),0.9757895521275803,0.022544837232647552,107.0
+InceptionV3 plain multi-output,Grape___healthy,0.9917079618409602,0.0028729581467048363,100.0
+InceptionV3 plain multi-output,Orange___Haunglongbing_(Citrus_greening),0.968464284837261,0.005889213320144669,551.0
+InceptionV3 plain multi-output,Peach___Bacterial_spot,0.9794175042010647,0.011709756804205954,230.0
+InceptionV3 plain multi-output,Peach___healthy,0.8334430987330469,0.05928228543725634,100.0
+InceptionV3 plain multi-output,"Pepper,_bell___Bacterial_spot",0.874294616746691,0.08535032639450404,100.0
+InceptionV3 plain multi-output,"Pepper,_bell___healthy",0.9274318192033343,0.041029677672449714,148.0
+InceptionV3 plain multi-output,Potato___Early_blight,0.9085852836646152,0.1280697801543032,100.0
+InceptionV3 plain multi-output,Potato___Late_blight,0.9043933708567855,0.10760412284366237,100.0
+InceptionV3 plain multi-output,Potato___healthy,0.9677112186818077,0.021515904501526194,100.0
+InceptionV3 plain multi-output,Raspberry___healthy,0.9253436234793324,0.07233704679519083,100.0
+InceptionV3 plain multi-output,Soybean___healthy,0.9845564210392611,0.0020332307551896647,509.0
+InceptionV3 plain multi-output,Squash___Powdery_mildew,0.9936122963295656,0.0068958228048537585,184.0
+InceptionV3 plain multi-output,Strawberry___Leaf_scorch,0.9909773418082571,0.0045451932210495965,111.0
+InceptionV3 plain multi-output,Strawberry___healthy,0.9813864429020338,0.010714965811224714,100.0
+InceptionV3 plain multi-output,Tomato___Bacterial_spot,0.6738460188027048,0.043163952905892373,213.0
+InceptionV3 plain multi-output,Tomato___Early_blight,0.582900146280428,0.03311383694045408,100.0
+InceptionV3 plain multi-output,Tomato___Late_blight,0.8023258165638589,0.05472230649601366,191.0
+InceptionV3 plain multi-output,Tomato___Leaf_Mold,0.7244058925330293,0.11441693729692058,100.0
+InceptionV3 plain multi-output,Tomato___Septoria_leaf_spot,0.6088111754557628,0.18402587357015623,178.0
+InceptionV3 plain multi-output,Tomato___Spider_mites Two-spotted_spider_mite,0.33099672157891874,0.18938706682214837,168.0
+InceptionV3 plain multi-output,Tomato___Target_Spot,0.49304190556773714,0.13498382383747867,140.0
+InceptionV3 plain multi-output,Tomato___Tomato_Yellow_Leaf_Curl_Virus,0.7806633505912076,0.1063911153000997,535.0
+InceptionV3 plain multi-output,Tomato___Tomato_mosaic_virus,0.5379899181250376,0.11253730864488427,100.0
+InceptionV3 plain multi-output,Tomato___healthy,0.8177710856835366,0.04191607537413635,159.0
+PlantXViT-style reproduction,Apple___Apple_scab,0.9849238578680203,0.00500173898487189,100.0
+PlantXViT-style reproduction,Apple___Black_rot,0.9850578789222206,0.005049525781227524,100.0
+PlantXViT-style reproduction,Apple___Cedar_apple_rust,0.9983249581239532,0.002901257634118735,100.0
+PlantXViT-style reproduction,Apple___healthy,0.976727671206041,0.01406549578004078,165.0
+PlantXViT-style reproduction,Blueberry___healthy,0.982541015392183,0.007374370846066792,150.0
+PlantXViT-style reproduction,Cherry___Powdery_mildew,0.9827702150265353,0.00966048193123568,105.0
+PlantXViT-style reproduction,Cherry___healthy,0.9799786897728082,0.0051650936421171675,100.0
+PlantXViT-style reproduction,Corn___Cercospora_leaf_spot Gray_leaf_spot,0.9667815127721427,0.007556753725040555,100.0
+PlantXViT-style reproduction,Corn___Common_rust,0.9915133523331016,0.004273286869530377,119.0
+PlantXViT-style reproduction,Corn___Northern_Leaf_Blight,0.9587962239005513,0.005858079620867941,100.0
+PlantXViT-style reproduction,Corn___healthy,0.9985569985569986,0.002499351814673692,116.0
+PlantXViT-style reproduction,Grape___Black_rot,0.9829893641321016,0.004350220839553942,118.0
+PlantXViT-style reproduction,Grape___Esca_(Black_Measles),0.9939830900936134,0.0020845143101949916,138.0
+PlantXViT-style reproduction,Grape___Leaf_blight_(Isariopsis_Leaf_Spot),0.9906686271848776,0.0046293431932774185,107.0
+PlantXViT-style reproduction,Grape___healthy,0.9820155601938688,0.012152909119644497,100.0
+PlantXViT-style reproduction,Orange___Haunglongbing_(Citrus_greening),0.993612233484845,0.0027606184500238,551.0
+PlantXViT-style reproduction,Peach___Bacterial_spot,0.9876731430113042,0.005063975596161502,230.0
+PlantXViT-style reproduction,Peach___healthy,0.9901637222545784,0.00980408174641201,100.0
+PlantXViT-style reproduction,"Pepper,_bell___Bacterial_spot",0.9803264047418799,0.008378440767349064,100.0
+PlantXViT-style reproduction,"Pepper,_bell___healthy",0.9359533251971005,0.04034972452675589,148.0
+PlantXViT-style reproduction,Potato___Early_blight,0.9949915414552031,2.8868235165370035e-05,100.0
+PlantXViT-style reproduction,Potato___Late_blight,0.9799959587795515,0.00034997995707593705,100.0
+PlantXViT-style reproduction,Potato___healthy,0.9708998046779621,0.012349497020386523,100.0
+PlantXViT-style reproduction,Raspberry___healthy,0.9782737826021407,0.010511532779065297,100.0
+PlantXViT-style reproduction,Soybean___healthy,0.9731040881446806,0.01047590749383543,509.0
+PlantXViT-style reproduction,Squash___Powdery_mildew,0.9963817076862865,0.004138031865328263,184.0
+PlantXViT-style reproduction,Strawberry___Leaf_scorch,0.9984917043740573,0.0026124446569666233,111.0
+PlantXViT-style reproduction,Strawberry___healthy,0.9900821834995792,0.004902117074041239,100.0
+PlantXViT-style reproduction,Tomato___Bacterial_spot,0.9727439153097731,0.007489977347807735,213.0
+PlantXViT-style reproduction,Tomato___Early_blight,0.9460173674280709,0.013793590952396,100.0
+PlantXViT-style reproduction,Tomato___Late_blight,0.9704755035414802,0.00892657775401365,191.0
+PlantXViT-style reproduction,Tomato___Leaf_Mold,0.9785391597023095,0.01157445580464949,100.0
+PlantXViT-style reproduction,Tomato___Septoria_leaf_spot,0.977088013760938,0.005043749044869923,178.0
+PlantXViT-style reproduction,Tomato___Spider_mites Two-spotted_spider_mite,0.9733267719553212,0.004837135568013944,168.0
+PlantXViT-style reproduction,Tomato___Target_Spot,0.970309362210529,0.009146880350645628,140.0
+PlantXViT-style reproduction,Tomato___Tomato_Yellow_Leaf_Curl_Virus,0.9884923242035953,0.004667299348698752,535.0
+PlantXViT-style reproduction,Tomato___Tomato_mosaic_virus,0.9933829203815904,0.002843949899953826,100.0
+PlantXViT-style reproduction,Tomato___healthy,0.9947290660064688,0.0018328214032095364,159.0

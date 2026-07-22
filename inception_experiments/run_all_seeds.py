@@ -17,6 +17,7 @@ def main() -> None:
     parser.add_argument("--batch-size", type=int, required=True)
     parser.add_argument("--num-workers", type=int, required=True)
     parser.add_argument("--device", choices=("cuda", "mps", "cpu"), default="cuda")
+    parser.add_argument("--sampling", choices=("none", "raw-balanced"), default="none")
     args = parser.parse_args()
 
     for seed in args.seeds:
@@ -30,6 +31,7 @@ def main() -> None:
                 "--seed", str(seed),
                 "--device", args.device,
                 "--num-workers", str(args.num_workers),
+                "--sampling", args.sampling,
             ],
             check=True,
         )

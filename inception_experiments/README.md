@@ -52,6 +52,25 @@ python -m inception_experiments.run_all_seeds \
 This produces `all_seed_results.csv` and `final_mean_std.csv/.md` after all nine
 formal runs complete.
 
+For a supplied split that requires training-time class balancing, first create
+a validated, relocatable data directory and then enable inverse-frequency raw
+class sampling:
+
+```bash
+python devide_dataset/prepare_provided_splits.py \
+  --train train_split.csv --val val_split.csv --test test_split.csv \
+  --output-dir devide_dataset/data_38_balanced --image-root /path/to/images
+
+python -m inception_experiments.run_all_seeds \
+  --data-dir devide_dataset/data_38_balanced \
+  --runs-dir inception_experiments/runs/balanced_38/formal \
+  --device cuda --batch-size 64 --num-workers 12 --sampling raw-balanced
+```
+
+`raw-balanced` uses a training-only inverse-frequency
+`WeightedRandomSampler`, with replacement and one sampled epoch equal in size
+to the original training split. Validation and test loaders are unchanged.
+
 Each output directory contains `best_model.pt`, `last_state.pt`, `config.json`,
 `history.json`, and `training_summary.json`. Resume an interrupted run with:
 
@@ -81,10 +100,10 @@ python -m inception_experiments.plot_history \
   inception_experiments/runs/single_raw/seed_42/history.json
 ```
 
-## Common 39-class metrics and batch-1 latency
+## Common raw-class metrics and batch-1 latency
 
 After the formal and extended checkpoints exist, generate a directly
-comparable 39-class endpoint for every model and measure synchronised batch-1
+comparable raw-class endpoint for every model and measure synchronised batch-1
 GPU latency:
 
 ```bash
@@ -93,7 +112,8 @@ python -m inception_experiments.supplementary_evaluate \
 ```
 
 Raw-output models use direct class argmax. Multi-output models use constrained
-joint decoding over the 39 legal plant-disease combinations. Each run receives
+joint decoding over the legal plant-disease combinations declared by the split.
+Each run receives
 a `supplementary_test_evaluation` directory containing image-level predictions,
 a classification report, a confusion matrix and joint metrics. The aggregate
 CSV is written under `inception_experiments/runs/` and is intentionally ignored
@@ -101,3 +121,11 @@ by Git; the compact three-seed summary is versioned in `results/project045/`.
 
 Do not commit datasets, machine-specific split CSVs, checkpoints, or generated
 evaluation artifacts.
+
+The compact balanced-run report can be regenerated from an extracted local
+export with:
+
+```bash
+MPLCONFIGDIR=/tmp/comp9444-matplotlib \
+python analysis/generate_balanced38_report.py
+```
