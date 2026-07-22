@@ -1,0 +1,4 @@
+split,images,raw_classes
+train,45256,38
+val,9052,38
+test,6035,38

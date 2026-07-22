@@ -152,7 +152,7 @@ def evaluate_checkpoint(checkpoint_path: Path, args: argparse.Namespace) -> dict
         "seed": seed,
         "num_test_images": len(true_raw),
         "joint_decoding": "direct raw argmax" if config.name in RAW_MODELS else
-            "maximum summed plant+disease log-probability over the 39 legal raw combinations",
+            f"maximum summed plant+disease log-probability over the {len(raw_pairs)} legal raw combinations",
         "joint_raw_acc": float(accuracy_score(true_raw, pred_raw)),
         "joint_raw_macro_f1": float(f1_score(true_raw, pred_raw, average="macro", zero_division=0)),
         "joint_raw_weighted_f1": float(f1_score(true_raw, pred_raw, average="weighted", zero_division=0)),

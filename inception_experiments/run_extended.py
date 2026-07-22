@@ -37,7 +37,8 @@ def complete(output: Path, epochs: int) -> bool:
 
 def experiment(root: Path, data: Path, name: str, model: str, seed: int,
                epochs: int, batch: int, workers: int, weights: str,
-               loss_weights: tuple[float, float, float, float] | None, log) -> None:
+               loss_weights: tuple[float, float, float, float] | None,
+               sampling: str, log) -> None:
     output = root / name / f"seed_{seed}"
     output.mkdir(parents=True, exist_ok=True)
     if not complete(output, epochs):
@@ -46,6 +47,7 @@ def experiment(root: Path, data: Path, name: str, model: str, seed: int,
             "--data-dir", str(data), "--output-dir", str(output), "--epochs", str(epochs),
             "--batch-size", str(batch), "--num-workers", str(workers), "--seed", str(seed),
             "--device", "cuda", "--weights", weights, "--amp",
+            "--sampling", sampling,
         ]
         if loss_weights:
             for flag, value in zip(("--loss-plant", "--loss-disease", "--loss-plant-t", "--loss-disease-t"), loss_weights):
@@ -84,6 +86,7 @@ def main() -> None:
     parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--num-workers", type=int, default=8)
+    parser.add_argument("--sampling", choices=("none", "raw-balanced"), default="none")
     args = parser.parse_args()
     args.runs_dir.mkdir(parents=True, exist_ok=True)
     # A separate screen can start this immediately; it waits for the core runner.
@@ -93,18 +96,19 @@ def main() -> None:
     with (args.runs_dir / "extended_run.log").open("a", encoding="utf-8") as log:
         for seed in SEEDS:
             experiment(args.runs_dir, args.data_dir, "plantxvit_reproduction", "plantxvit_raw",
-                       seed, args.epochs, args.batch_size, args.num_workers, "none", None, log)
+                       seed, args.epochs, args.batch_size, args.num_workers, "none", None,
+                       args.sampling, log)
         experiment(args.runs_dir, args.data_dir, "gsmo_no_pretrain", "gsmo", 42,
-                   args.epochs, args.batch_size, args.num_workers, "none", None, log)
+                   args.epochs, args.batch_size, args.num_workers, "none", None, args.sampling, log)
         experiment(args.runs_dir, args.data_dir, "gsmo_equal_loss", "gsmo", 42,
-                   args.epochs, args.batch_size, args.num_workers, "imagenet", (1, 1, 1, 1), log)
+                   args.epochs, args.batch_size, args.num_workers, "imagenet", (1, 1, 1, 1), args.sampling, log)
         summarize(args.runs_dir, args.runs_dir / "stage_17_group_results.csv")
         (args.runs_dir / "STAGE_17_COMPLETE").write_text("14 local runs + 3 teammate E1 runs = 17\n")
         for seed in SEEDS[1:]:
             experiment(args.runs_dir, args.data_dir, "gsmo_no_pretrain", "gsmo", seed,
-                       args.epochs, args.batch_size, args.num_workers, "none", None, log)
+                       args.epochs, args.batch_size, args.num_workers, "none", None, args.sampling, log)
             experiment(args.runs_dir, args.data_dir, "gsmo_equal_loss", "gsmo", seed,
-                       args.epochs, args.batch_size, args.num_workers, "imagenet", (1, 1, 1, 1), log)
+                       args.epochs, args.batch_size, args.num_workers, "imagenet", (1, 1, 1, 1), args.sampling, log)
         summarize(args.runs_dir, args.runs_dir / "stage_21_group_results.csv")
         (args.runs_dir / "READY_FOR_DOWNLOAD").write_text("18 local runs + 3 teammate E1 runs = 21\n")
 

@@ -26,3 +26,13 @@ limitations.
 
 The `plantxvit_reproduction` configuration is a PlantXViT-style reproduction,
 not the authors' official implementation.
+
+## Balanced 38-class follow-up
+
+`balanced38/` contains the compact follow-up analysis for the supplied
+45,256 / 9,052 / 6,035 split with `Background_without_leaves` removed and
+training-only inverse-frequency raw-class sampling. It includes all 18
+run-level metrics, three-seed summaries, a descriptive comparison with the
+earlier grouped 39-class experiment, per-class F1, six figures and a Markdown
+report. Checkpoints, full image-level predictions and server archives remain
+local and are intentionally excluded from Git.

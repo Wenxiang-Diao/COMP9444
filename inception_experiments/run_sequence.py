@@ -13,7 +13,6 @@ import torch
 
 
 EXPERIMENTS = ("single_raw", "plain_multi", "gsmo")
-EXPECTED_COUNTS = {"train": 43040, "val": 9223, "test": 9223}
 
 
 def parse_args() -> argparse.Namespace:
@@ -26,6 +25,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--device", choices=("mps", "cuda", "cpu"), default="mps")
     parser.add_argument("--num-workers", type=int, default=0)
+    parser.add_argument("--sampling", choices=("none", "raw-balanced"), default="none")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -42,15 +42,20 @@ def write_json(path: Path, value: object) -> None:
 
 
 def validate_frozen_data(data_dir: Path) -> None:
-    summary_path = data_dir / "grouped_split_summary.json"
-    if not summary_path.exists():
-        raise FileNotFoundError(f"Frozen grouped split evidence is missing: {summary_path}")
-    summary = json.loads(summary_path.read_text(encoding="utf-8"))
-    if summary.get("counts") != EXPECTED_COUNTS:
-        raise RuntimeError(f"Unexpected split counts: {summary.get('counts')}")
-    if summary.get("groups_crossing_splits") != 0:
-        raise RuntimeError("Duplicate groups still cross split boundaries")
-    for split, expected in EXPECTED_COUNTS.items():
+    metadata_path = data_dir / "split_metadata.json"
+    legacy_path = data_dir / "grouped_split_summary.json"
+    if metadata_path.exists():
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    elif legacy_path.exists():
+        metadata = json.loads(legacy_path.read_text(encoding="utf-8"))
+        if metadata.get("groups_crossing_splits") != 0:
+            raise RuntimeError("Duplicate groups still cross split boundaries")
+    else:
+        raise FileNotFoundError(f"Split metadata is missing: {metadata_path}")
+    expected_counts = metadata.get("counts", {})
+    if set(expected_counts) != {"train", "val", "test"}:
+        raise RuntimeError(f"Invalid split counts: {expected_counts}")
+    for split, expected in expected_counts.items():
         csv_path = data_dir / f"{split}_split.csv"
         if not csv_path.exists():
             raise FileNotFoundError(csv_path)
@@ -121,6 +126,7 @@ def main() -> None:
         "batch_size": args.batch_size,
         "seed": args.seed,
         "device": args.device,
+        "sampling": args.sampling,
         "updated_at": now(),
         "experiments": {},
     }
@@ -149,6 +155,7 @@ def main() -> None:
                 "--device", args.device,
                 "--num-workers", str(args.num_workers),
                 "--weights", "imagenet",
+                "--sampling", args.sampling,
             ]
             last_state = output_dir / "last_state.pt"
             if last_state.exists():
