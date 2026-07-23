@@ -1,6 +1,6 @@
 # CNN Baseline for Plant Leaf Disease Classification
 
-This directory contains a PyTorch CNN baseline for classifying plant-leaf images into 39 combined plant/disease classes. The final, self-contained analysis is in `notebooks/BaselineCnn.ipynb`; the files under `src/` provide supporting command-line training, basic evaluation, and plotting entry points.
+This directory contains a PyTorch CNN baseline for classifying plant-leaf images into 38 combined plant/disease classes. The `Background_without_leaves` directory is excluded. The final, self-contained analysis is in `notebooks/BaselineCnn.ipynb`; the files under `src/` provide supporting command-line training, basic evaluation, and plotting entry points.
 
 ## Project layout
 
@@ -23,7 +23,7 @@ COMP9444/
 
 The CSV files must contain `path` and `label_raw` columns. Generate them with `devide_dataset/prepare_data.py` before training. If the dataset is moved after generating the CSV files, regenerate the splits because their image paths will no longer be valid.
 
-The prepared data uses a stratified 70% / 15% / 15% train, validation, and test split with random seed `42`.
+The prepared data uses a stratified 75% / 15% / 10% train, validation, and test split with random seed `42`. The preparation script separates the sorted first 80% and last 20% of each class, applies the same stratified 75% / 15% / 10% split to both portions, and then merges the corresponding splits.
 
 ## Dependencies
 
@@ -68,7 +68,7 @@ The training loop uses `optimizer.zero_grad(set_to_none=True)` to avoid unnecess
 python model/Baseline/src/evaluate.py
 ```
 
-This loads the saved checkpoint, reports test accuracy, macro precision and macro recall, and writes the confusion matrix to `model/Baseline/results/cnn_confusion_matrix.png`.
+This loads the saved checkpoint, reports test accuracy, macro precision, macro recall and macro F1, and writes the confusion matrix to `model/Baseline/results/cnn_confusion_matrix.png`. Macro F1 gives every class equal weight, making it more informative than accuracy alone when class frequencies differ.
 
 ## Complete notebook analysis
 
@@ -85,7 +85,7 @@ The notebook contains the complete workflow and submission output:
 - unchanged three-convolution-layer CNN definition;
 - optional full training controlled by `RUN_FULL_TRAINING`;
 - best-checkpoint loading;
-- test accuracy, macro precision, and macro recall;
+- test accuracy, macro precision, macro recall, and macro F1;
 - confusion matrix;
 - training and validation loss/accuracy curves;
 - per-image predictions with Top-3 probabilities;

@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import torch
 from PIL import Image
-from sklearn.metrics import confusion_matrix, precision_score, recall_score
+from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 
@@ -93,7 +93,8 @@ def evaluate_model(model, test_loader, device):
     conf_matrix = confusion_matrix(all_labels, all_predictions)
     precision = precision_score(all_labels, all_predictions, average="macro", zero_division=0)
     recall = recall_score(all_labels, all_predictions, average="macro", zero_division=0)
-    return accuracy, conf_matrix, precision, recall
+    macro_f1 = f1_score(all_labels, all_predictions, average="macro", zero_division=0)
+    return accuracy, conf_matrix, precision, recall, macro_f1
 
 
 def plot_confusion_matrix(conf_matrix, class_names, title="Confusion Matrix"):
@@ -124,8 +125,11 @@ def main():
     model.load_state_dict(torch.load(MODELS_DIR / "cnn_leaf.pth", map_location=device, weights_only=True))
     model.to(device)
 
-    accuracy, conf_matrix, precision, recall = evaluate_model(model, test_loader, device)
-    print(f"Accuracy: {accuracy:.4f}%, Precision: {precision:.4f}, Recall: {recall:.4f}")
+    accuracy, conf_matrix, precision, recall, macro_f1 = evaluate_model(model, test_loader, device)
+    print(
+        f"Accuracy: {accuracy:.4f}%, Macro Precision: {precision:.4f}, "
+        f"Macro Recall: {recall:.4f}, Macro F1: {macro_f1:.4f}"
+    )
     plot_confusion_matrix(conf_matrix, class_names)
 
 
