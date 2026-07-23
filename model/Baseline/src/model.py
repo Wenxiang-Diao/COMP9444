@@ -3,7 +3,7 @@ import torch.nn.functional as F
 
 
 class CNNModel(nn.Module):
-    def __init__(self, num_classes=39):
+    def __init__(self, num_classes=38):
         super(CNNModel, self).__init__()
         self.conv1 = nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1)
         self.conv2 = nn.Conv2d(16, 32, kernel_size=3, stride=1, padding=1)
